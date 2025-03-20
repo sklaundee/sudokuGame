@@ -4,33 +4,26 @@
 #include <random>
 #include <algorithm>
 using namespace std;
+#define boardLength 9
+
 
 class Board{
-    static vector<vector<int>> sudokuBoard;
-    static Board* boardPtr;
-    static mutex mtx;
-    //Singleton Constructor
-    Board(){
-        for (int i = 0; i < 9; i++){
-            for (int j = 0; j < 9; j++){
-                sudokuBoard[i][j] = 0;
-            }
-        }
-    }
+    static int sudokuBoard[9][9];
 
     public:
-
-        Board(const Board& obj) = delete;
-
-        static Board* getInstance(){
-            if(boardPtr == nullptr){
-                lock_guard<mutex> lock(mtx);
-                if(boardPtr == nullptr){
-                    boardPtr = new Board();
-                }
-            }
-            return boardPtr;
-        }
-
-        void setValues()
+        void generateBoard();
+        void setValues();
 } board;
+
+void Board::generateBoard(){
+    for (int i = 0; i < boardLength; i++){
+        for(int j = 0; j < boardLength; j++){
+        
+        }
+    }
+}
+
+bool checkRow(int row, int col, int value){
+    
+    return false;
+}
