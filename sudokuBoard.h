@@ -1,8 +1,13 @@
 #ifndef SUDOKU_BOARD_H
 #define SUDOKU_BOARD_H
+#include <random>
+
 
 class Board{
     static int sudokuBoard[9][9];
+    static std::mt19937 gen;
+    static std::uniform_int_distribution<> distrib;    
+
     public:
         void generateBoard();
         void setValues();

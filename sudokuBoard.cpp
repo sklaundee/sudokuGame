@@ -10,7 +10,7 @@ using namespace std;
 sudoku board:
 i   0  1  2  3  4  5  6  7  8 j 
 0  {0, 0, 0, 0, 0, 0, 0, 0, 0,
-1	0, 0, 0, 0, 0, 0, 0, 0, 0,#include <algorithm>
+1	0, 0, 0, 0, 0, 0, 0, 0, 0,
 2	0, 0, 0, 0, 0, 0, 0, 0, 0,
 3	0, 0, 0, 0, 0, 0, 0, 0, 0,
 4	0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -24,6 +24,9 @@ A pair of i and j gives us the cooridnate of an element (e.g. [0][0] is the top 
 
 */
 int Board::sudokuBoard[9][9] = {0};
+mt19937 Board::gen(time(0));
+uniform_int_distribution<> Board::distrib(1,9);
+
 
 void Board::generateBoard(){
     for (int i = 0; i < boardLength; i++){
@@ -33,6 +36,8 @@ void Board::generateBoard(){
             while(sudokuBoard[i][j] == 0){
 
                 random = generateRandom();
+                cout << !isInBox(i,j,random) << endl;
+                
                 if (!isInBox(i, j, random) && !isInRow(i, j, random) && !isInCol(i, j, random)){
                     sudokuBoard[i][j] = random;
 
@@ -44,14 +49,8 @@ void Board::generateBoard(){
 
 
 int Board::generateRandom(){
-    int min = 1;
-    int max = 9;
 
-    mt19937 gen(time(0));
-    uniform_int_distribution<> distrib(min, max);
-
-    int randomVal = distrib(gen);
-    return randomVal;
+    return distrib(gen);
 }
 bool Board::isInRow(int row, int col, int value){
     
