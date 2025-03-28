@@ -27,21 +27,27 @@ int Board::sudokuBoard[9][9] = {0};
 mt19937 Board::gen(time(0));
 uniform_int_distribution<> Board::distrib(1,9);
 
+void Board::generateBoard() {
+    for (int i = 0; i < boardLength; i++) {
+        for (int j = 0; j < boardLength; j++) {
+            int random; 
+            int attempts = 0;  
 
-void Board::generateBoard(){
-    for (int i = 0; i < boardLength; i++){
-        int random; 
-        for(int j = 0; j < boardLength; j++){
-            
-            while(sudokuBoard[i][j] == 0){
-
+            while (sudokuBoard[i][j] == 0 && attempts < 50) {
                 random = generateRandom();
-                cout << !isInBox(i,j,random) << endl;
-                
-                if (!isInBox(i, j, random) && !isInRow(i, j, random) && !isInCol(i, j, random)){
-                    sudokuBoard[i][j] = random;
 
+                if (!isInBox(i, j, random) && !isInRow(i, j, random) && !isInCol(i, j, random)) {
+                    sudokuBoard[i][j] = random;
                 }
+
+                attempts++;
+            }
+
+            if (attempts >= 50) { //if we take too many attempts to fill out a cell, we assume that the board is unsolvable and reset until we make a solvable one.
+                
+                resetBoard();  
+                generateBoard(); 
+                return; 
             }
         }
     }
@@ -95,4 +101,31 @@ void Board::toString(){
         }
         cout << endl;
     }
+}
+
+void Board::resetBoard() {
+    for (int i = 0; i < boardLength; i++) {
+        for (int j = 0; j < boardLength; j++) {
+            sudokuBoard[i][j] = 0;  
+        }
+    }
+}
+
+void Board::removeElements(){
+
+    int numsToRemove = 40;
+    while (numsToRemove > 0)
+    {
+        int i = generateRandom();
+        int j = generateRandom();
+
+        sudokuBoard[i][j] = 0;
+
+        numsToRemove--;
+    } 
+
+}
+
+void Board::clone(){
+    
 }

@@ -10,5 +10,16 @@ int main(){
     gameBoard.generateBoard(); 
     gameBoard.toString();    
 
+    Board answer = gameBoard;
+    cout << "answer board" << endl;
+    answer.toString();
+
+    cout << "removing elements" << endl;
+    gameBoard.removeElements();
+
+    gameBoard.toString();
+    answer.toString();
+    
+
     return 0;
 }

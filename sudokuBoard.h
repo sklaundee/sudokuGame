@@ -16,6 +16,9 @@ class Board{
         bool isInCol(int row, int col, int value);
         bool isInBox(int row, int col, int value);
         void toString();
+        void resetBoard();
+        void removeElements();
+        void clone();
 };
 
 #endif
